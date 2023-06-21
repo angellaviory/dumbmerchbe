@@ -2,7 +2,7 @@ def branch = "main"
 def remote = "origin"
 def dir = "~/dumbmerchfe"
 def server = "192.168.64.49"
-def credi = "jenkins"
+def credi = "jenks"
 
 pipeline {
 	agent any
