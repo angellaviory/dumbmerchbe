@@ -6,26 +6,20 @@ def server = "192.168.64.49"
 def imagename = "dumbmerchbe"
 
 pipeline {
-    agent any
-    stages {
-        stage('Repository pull') {
-            steps {
-                sshagent([cred]) {
-                    sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
-                    mkdir ${dir}
-                    cd ${dir}
-                    git init
-                    git remote add origin ${repo}
-                    git pull origin master
-                    git branch ${branch}
-                    git checkout ${branch}
-                    git pull origin ${branch}
-                    exit
-                    EOF
-                    """
-                }
-            }
-        }
+	agent any
+	stages {
+		stage ('Pull From Git'){
+			steps{
+				sshagent ([credi]) {
+					sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
+					cd ${dir}
+					git pull origin ${branch}
+					exit
+					EOF"""
+				}
+			}
+		}
+	
 
         stage('Image Build') {
             steps {
